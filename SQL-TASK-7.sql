@@ -7,11 +7,15 @@ insert into Student_details values('DivyaPrakash','Bsc-It',498),('Raina','Bsc-It
 select * from Student_details
 
 --1. Create a non-clustered index for department.
-create index h_index on student_details (departmant asc)
+create index h_index on student_details (departmant)
 exec sp_helpindex student_details
 --2. Create a filtered index for department='BCA'
-create index r_index on student_details (departmant asc) where departmant = 'bca'
+create index r_index on student_details (departmant) where departmant = 'BCA'
 exec sp_helpindex student_details
 --3. Create a view for students in BCA department.
+create view stud_bca as select * from student_details where departmant = 'BCA'
+select * from stud_bca
 --4. Apply Rank() for all the students based on score.
+select *  ,Rank() over(order by score desc) as Rank_ from Student_details
 --5. Apply Dense_Rank() for students in each department based on score.
+select * ,DENSE_RANK() over(partition by Departmant order by Score desc ) as DEPARTMENT_RANK from Student_details 
