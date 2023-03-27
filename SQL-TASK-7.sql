@@ -44,12 +44,8 @@ on m.id=e.mid
 select * from man_emp_tbl
 drop view man_emp_tbl
 --2. Show the working of 'on delete cascade on update set default' for the above tables
-alter table Employee drop constraint [FK__Employee____6477ECF3]--removing the foriegn key
-
+alter table Employee drop constraint [FK__Employee__mid__6774552F]--removing the foriegn key
 alter table employee drop column mid
-
-
-
 --performing the on delete cascade on update set default
 alter table Employee add  mid int default 101 constraint FK__Employee__mid_del_cas_update_default foreign key (mid) references manager(id)on delete cascade on update set default 
 
@@ -57,17 +53,12 @@ delete from Manager where  id=101
 update Manager set  id=101 where id=103
 update manager set name='karthi' where id = 103
 insert into manager values(103,'siva')
-
-
-
-
-
 --truncation the table
 truncate table employee
-
 --on update set defatul checking
 insert into employee (eid,ename) values (9,'david')
-
-update manager set id=105 where id =104
+update manager set id=106 where id =104
+update manager 
+delete from manager where id=101
 select * from Manager
 select * from Employee   
